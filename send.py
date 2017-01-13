@@ -58,15 +58,25 @@ python3 send_message_img.py -mes 'Текст третьего сообщения
 def createParser ():
 	parser = argparse.ArgumentParser()
 	parser.add_argument ('-uid', '--user_id', default=0)
-	parser.add_argument ('-mes', '--message', default="Пишу тебе сообщение!")
-	parser.add_argument ('-t', '--token', default="токен")
-	parser.add_argument ('-p', '--photo', default="photo.jpg")
+	parser.add_argument ('-mes', '--message', default='')
+	parser.add_argument ('-t', '--token', default='')
+	parser.add_argument ('-p', '--photo', default='')
 	return parser
 
  # парсим аргументы запуска
 if __name__ == '__main__':
 	parser = createParser()
 	namespace = parser.parse_args(sys.argv[1:])
+
+	if namespace.user_id == 0:
+		namespace.user_id = input ("введите id получателя:")
+	if namespace.message == '':
+		namespace.message = input ("введите сообщение:")
+	if namespace.token == '':
+		namespace.token = input ("введите токе:")
+	if namespace.photo == '':
+		namespace.photo = input ("введите путь до изображения:")
+
 	print ("Указан id vk получателя: {}".format (namespace.user_id) )
 	print ("Указано сообщение: {}".format (namespace.message) )
 	print ("Указано токен: {}".format (namespace.token) )
